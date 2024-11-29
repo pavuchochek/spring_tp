@@ -30,8 +30,22 @@ public class UserController {
 		return repository.save(userForum);
 	}
 
+	@PutMapping("/user/{id}")
+	UserForum replaceUser(@RequestBody UserForum userForum,@PathVariable Long id){
+		return repository.findById(id).map(user -> {
+			user.setUsername(userForum.getUsername());
+			user.setPassword(userForum.getPassword());
+			user.setRole(userForum.getRole());
+			return repository.save(user);
+		})
+				.orElseGet(() -> {
+					return repository.save(userForum);
+				});
+	}
+
 	@DeleteMapping("/user/{id}")
 	void suppressionUserForum(@PathVariable Long id){
 		repository.deleteById(id);
 	}
+
 }
