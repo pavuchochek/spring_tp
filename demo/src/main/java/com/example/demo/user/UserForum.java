@@ -32,7 +32,7 @@ public class UserForum {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToMany(mappedBy = "id")
+	@OneToMany(mappedBy = "userForum")
 	private Collection<Article> articles;
 
 
