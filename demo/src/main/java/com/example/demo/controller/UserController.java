@@ -5,6 +5,7 @@ import com.example.demo.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -19,13 +20,18 @@ public class UserController {
 		return repository.findAll();
 	}
 
+	@GetMapping("/user/{id}")
+	Optional<UserForum> one(@PathVariable Long id){
+		return repository.findById(id);
+	}
+
 	@PostMapping("/user")
 	UserForum newUserForum(@RequestBody UserForum userForum) {
 		return repository.save(userForum);
 	}
 
 	@DeleteMapping("/user/{id}")
-	public String suppression(@PathVariable Long id){
-		return "Je supprime un utilisateur avec id"+id;
+	void suppressionUserForum(@PathVariable Long id){
+		repository.deleteById(id);
 	}
 }
